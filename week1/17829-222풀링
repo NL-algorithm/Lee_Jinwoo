@@ -1,0 +1,44 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<vector<int>> arr(n, vector<int>(n));
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> arr[i][j];
+        }
+    }
+
+    while (n > 1) { //조건문 추가 해야함.
+        for (int x = 0; x < n; x += 2) {
+            for (int y = 0; y < n; y += 2) {
+                vector<int> temp_arr = {
+                    arr[x][y],
+                    arr[x + 1][y],
+                    arr[x][y + 1],
+                    arr[x + 1][y + 1]
+                };
+                sort(temp_arr.begin(), temp_arr.end());
+                arr[x / 2][y / 2] = temp_arr[2]; // new 행렬에는 좌표 값이 1/2씩 되서 새로 입력됨. 
+            }
+        }
+        n /= 2;
+    }
+
+    cout << arr[0][0] << endl;
+
+    return 0;
+}
+
+/*
+전략
+1. 대소비교로 2번째로 큰 값 찾기 sort
+2. 행렬 크기 1/2, new 배열에 값 생성하기.
+*/
